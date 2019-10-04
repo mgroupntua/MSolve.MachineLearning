@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3855BD73-698
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FE8607FC-7439-4AE3-93E4-6BE5618D4864}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGroup.MachineLearning", "src\MGroup.MachineLearning\MGroup.MachineLearning.csproj", "{7A45B6EC-73B0-44BB-BB28-EA2EC8DCBD9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MGroup.MachineLearning", "src\MGroup.MachineLearning\MGroup.MachineLearning.csproj", "{7A45B6EC-73B0-44BB-BB28-EA2EC8DCBD9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGroup.MachineLearning.Tests", "tests\MGroup.MachineLearning.Tests\MGroup.MachineLearning.Tests.csproj", "{471778EC-B941-4E1E-ADC3-B6793EC2AA99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MGroup.MachineLearning.Tests", "tests\MGroup.MachineLearning.Tests\MGroup.MachineLearning.Tests.csproj", "{471778EC-B941-4E1E-ADC3-B6793EC2AA99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
