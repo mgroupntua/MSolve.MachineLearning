@@ -21,6 +21,11 @@ namespace MGroup.MachineLearning
 		Tensor predictor;
 		Session sess;
 
+		/// <summary>
+		/// This class constucts a neural network that best 
+		/// approximates the relationship between a dependent 
+		/// variable and some independent ones.
+		/// <summary>
 		public NeuralNetwork(int numHiddenLayers, int trainingEpochs, INormalization normalization)
 		{
 			this.normalization = normalization;
@@ -55,6 +60,12 @@ namespace MGroup.MachineLearning
 			return (train_op, loss, gs, predictor);
 		}
 
+		/// <summary>
+		/// Evaluate the weight coefficients and biases so that
+		/// the mean-square error between the between the 
+		/// known values of the dependent variable and the 
+		/// ones predicted
+		/// <summary>
 		public void Train(double[,] X, float[] Y)
 		{
 			graph = tf.Graph().as_default();
@@ -76,6 +87,10 @@ namespace MGroup.MachineLearning
 			}
 		}
 
+		/// <summary>
+		/// Utilize the neural network
+		/// to make new predictions
+		/// </summary>
 		public float[] Predict(double[,] X)
 		{
 			var output = sess.run(predictor, new FeedItem(features, np.array(X)));
@@ -83,6 +98,10 @@ namespace MGroup.MachineLearning
 
 		}
 
+		/// <summary>
+		/// test the accuracy of the neural network
+		/// on additional test data
+		/// </summary>
 		public void Test(Session sess)
 		{
 			throw new NotImplementedException();

@@ -8,35 +8,21 @@ namespace MGroup.MachineLearning
 {
 	/// <summary>
 	/// Interface of linear regression project
-	/// All example should implement IExample so the entry program will find it.
 	/// </summary>
 	public interface ILinearRegression
 	{
 
 		/// <summary>
-		/// Set true to import the computation graph instead of building it.
+		/// Obtain the optimal coefficients of the regression
 		/// </summary>
-		bool IsImportingGraph { get; set; }
-
-		/// <summary>
-		/// Build dataflow graph, train and predict
-		/// </summary>
-		/// <returns></returns>
-
-		void Train();
+		void Train(double[] X, double[] Y);
 
 		void Test(Session sess);
 
-		void Predict(Session sess);
-
-		Graph ImportGraph();
-
-		Graph BuildGraph();
-
 		/// <summary>
-		/// Prepare dataset
+		/// Use the computed regression coefficients to make predictions for new data
 		/// </summary>
-		void PrepareData(double[] item1, double[] item2);
+		(float[],float,float) Predict(double[] X);
 
 	}
 }

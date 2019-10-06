@@ -14,14 +14,15 @@ namespace MGroup.MachineLearning
 		bool IsImportingGraph { get; set; }
 
 		/// <summary>
-		/// Build dataflow graph, train and predict
+		/// Build dataflow graph and train a neural network
 		/// </summary>
-		/// <returns></returns>
-
 		void Train(double[,] X, float[] Y);
 
 		void Test(Session sess);
 
+		/// <summary>
+		/// Use the neural network to make predictions for new data
+		/// </summary>
 		float[] Predict(double[,] X);
 	}
 }
