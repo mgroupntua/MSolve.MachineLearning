@@ -32,7 +32,7 @@ namespace MGroup.MachineLearning
 		/// <param name="numHiddenLayers">An <see cref="int"/> corresponding to the no. of hidden layers in the network.</param>
 		/// <param name="trainingEpochs">An <see cref="int"/> corresponding to the number of times all of the training vectors are used once
 		/// to update the weights.</param>
-		/// <param name="normalization">A <see cref="INormalization"/> refering to the method of choice to normalize the data.</param>
+		/// <param name="normalization">An <see cref="INormalization"/> refering to the method of choice to normalize the data.</param>
 		public NeuralNetwork(int numHiddenLayers, int trainingEpochs, INormalization normalization)
 		{
 			this.normalization = normalization;
