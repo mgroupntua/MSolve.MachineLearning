@@ -26,16 +26,6 @@ steps:
     verbosityRestore: 'Normal'
     feedRestore: 'MSolve-Nugets'
 
-
-- task: SonarCloudPrepare@1
-  displayName: "Prepares SonarCloud analysis"
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'mgroupntua'
-    scannerMode: 'MSBuild'
-    projectKey: 'MSolve.MachineLearning'
-
-
 - task: DotNetCoreCLI@2
   name: dotnetBuild
   displayName: "Build projects"
@@ -44,14 +34,6 @@ steps:
     arguments: '-p:Version=$(Major).$(Minor).$(Build.BuildId)'
     verbosityPack: 'Minimal'
     configuration: '$(buildConfiguration)'
-
-- task: SonarCloudAnalyze@1
-  displayName: "Performs SonarCloud Analysis"
-
-- task: SonarCloudPublish@1
-  displayName: 'Publish Quality Gate Results'
-  inputs:
-    pollingTimeoutSec: '300'
 
 - task: DotNetCoreCLI@2
   name: dotnetPack
