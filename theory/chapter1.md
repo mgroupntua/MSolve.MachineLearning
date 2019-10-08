@@ -55,4 +55,14 @@ where
 
 AN improved version of Perceptrons, capable of achieving more accurate results in complex problems, is that of the Multi-Layer Perceptron (MLP), which is the result of stacking multiple Perceptrons. An MLP is composed of one input layer, one or more layers of LTUs, called hidden layers, and one final layer of LTUs called the output layer. Every layer except the output layer includes a bias neuron and is fully connected to the next layer. When an ANN has two or more hidden layers, it is called a deep neural network (DNN).
 
+The most common training algorithm for DNNs is the backpropagation training algorithm. The idea for this algorithm is the following.
+For each training instance, the algorithm feeds it to the network and computes the output of every neuron in each consecutive layer. Then, it measures a loss function that represents the network's output error, which is the difference between the desired output and the actual output of the network, and it also computes how much each neuron in the last hidden layer contributed to each output neuron's error. It then proceeds to measure how much of these error contributions came from each neuron in the previous hidden layer, and this process is repeated until the algorithm reaches the input layer. This process measures the error gradient across all the connection weights in the network by propagating the error gradient backward in the network. Then, it finally tweaks the connection weights to reduce the error.
+
+Some popular activation functions for the backpropagation algorithm are
 - The sigmoid function: $S(z)=\frac{1}{1+e^{-z}}$
+- The hyperbolic tangent function: $tanh(z)=2S(2z)-1$
+- The ReLU function: ReLU(z)=max(0,z)
+
+
+# References
+[1] Machine Learning with Scikit-Learn & TensorFlow
