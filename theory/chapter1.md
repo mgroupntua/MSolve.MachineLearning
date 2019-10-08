@@ -65,4 +65,4 @@ Some popular activation functions for the backpropagation algorithm are
 
 
 # References
-[1] Machine Learning with Scikit-Learn & TensorFlow
+[1] Machine Learning with Scikit-Learn & TensorFlow, A. Geron, O' Reilly, 2017
