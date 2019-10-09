@@ -1,14 +1,16 @@
 ![alt text](http://mgroup.ntua.gr/wp-content/uploads/2018/05/MGroup52.png "MGroup")
 
 # MSolve.MachineLearning
-This library features machine learning algorithms for data analysis, statistical modelling, inference and pattern recognition
+This library features machine learning algorithms for data analysis, statistical modelling, inference and pattern recognition. It uses the TensorFlow.NET and Microsoft.ML.TensorFlow.Redist NuGet packages.
 
 ## Features
 
-- **Linear Regression:** Estimation of the optimal linear relationship between a scalar dependent variable and one or more independent variables using Least Squares Fitting
+- **Linear Regression:** Estimation of the optimal linear relationship between a scalar dependent variable and one or more independent variables using Least Squares Fitting. 
+
   
-- **Neural Networks:** Estimation of a nonlinear relationship between a scalar dependent variable and one or more independent variables using a neural network
-  
+- **Neural Networks:** Estimation of a nonlinear relationship between a scalar dependent variable and one or more independent variables using a neural network.
+
+ 
 ## Installation instructions
 You can choose either to clone the solution or downloads it as a zip file.
 

@@ -10,12 +10,9 @@ namespace MGroup.MachineLearning
 	using static Tensorflow.Binding;
 
 	/// <summary>
-	/// This class provides the optimal linear regression
-	/// coefficients for a given training data set, tests
-	/// the accuracy of the approximation using a testing
-	/// data set and predicts the value of the dependent
-	/// variable on new values of the independent variables
-	/// <summary>
+	/// This class constucts a a linear regression model that best approximates the
+	/// relationship between a dependent variable and a set of independent variables.
+	/// </summary>
 	public class LinearRegression : ILinearRegression
 	{
 		private readonly int trainingEpochs;
@@ -27,6 +24,12 @@ namespace MGroup.MachineLearning
 		Tensor bias;
 		Session sess;
 
+		/// <summary>
+		/// Assigns values to the parameters needed for the implementation of the regression model.
+		/// </summary>
+		/// <param name="trainingEpochs">An <see cref="int"/> corresponding to the number of times of the training vectors are used once
+		/// to update the weight and bias.</param>
+		/// <param name="learningRate">A <see cref="float"/> used for tuning the gradient descent optimizer.</param>
 		public LinearRegression(int trainingEpochs, float learningRate)
 		{
 			this.trainingEpochs = trainingEpochs;
@@ -34,10 +37,11 @@ namespace MGroup.MachineLearning
 		}
 
 		/// <summary>
-		/// Evaluate the regression coefficient using a gradient descent
-		/// algorithm that minimizes the least squares error between the 
-		/// known values of the dependent variable and the ones predicted
+		/// Evaluates the optimal coefficients of the regression that minimize the least squares error
+		/// between the given values of the dependent variables and the ones predicted.
 		/// </summary>
+		/// <param name="X"> A <see cref="double"/> array containing the given values of the independent variables.</param>
+		/// <param name="Y"> A <see cref="double"/> array containing the corresponding values of the dependent variable.</param>
 		public void Train(double[] X, double[] Y)
 		{
 			// tf Graph Input
@@ -80,9 +84,12 @@ namespace MGroup.MachineLearning
 		}
 
 		/// <summary>
-		/// Utilize the calculated regression model
-		/// to make new predictions
+		/// Utilizes the regression model to make predictions for new data.
 		/// </summary>
+		/// <param name="X">A <see cref="double"/> array containing new values of the independent variables,
+		/// whose outcome we want to predict.</param>
+		/// <returns> A <see cref="float"/> array containing the predicted values of the dependent variables, a <see cref="float"/>
+		/// containing the optimal weight and a <see cref="float"/> containing the optimal bias for the model.</returns>
 		public (float[], float, float) Predict(double[] X)
 		{
 			var output = sess.run(predictor, new FeedItem(features, np.array(X)));
@@ -92,10 +99,11 @@ namespace MGroup.MachineLearning
 		}
 
 		/// <summary>
-		/// test the accuracy of the regression model
-		/// on additional test data
+		/// tests the accuracy of the regression model on additional test data.
 		/// </summary>
-		public void Test(Session sess)
+		/// <param name="X"> A <see cref="double"/> array containing the additional values of the independent variables.</param>
+		/// <param name="Y"> A <see cref="double"/> array containing the corresponding values of the dependent variable.</param>
+		public void Test(double[] X, double[] Y)
 		{
 			throw new NotImplementedException();
 		}
