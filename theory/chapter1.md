@@ -97,9 +97,9 @@ with
 
 $\delta_j=\begin{cases} \frac{\partial L(o_j,t)}{\partial o_j}\frac{d \phi(net_j)}{d net_j} \ \ \text{ij } j \ \text{is an output neuron}\\ (\sum_{m \in M} w_{jm}\delta_m) \frac{d \phi(net_j)}{d net_j} \ \ \text{ij } j \ \text{is an inner neuron} $
 
-To update the weight $w_{ij}$ using the gradient descent algorithm, a learning rate $c>0$ must be chosen, which refers to the step size of the algorithm. Then, the updated weights are given by
+To update the weight $w_{ij}$ using the gradient descent algorithm, a learning rate $\eta >0$ must be chosen, which refers to the step size of the algorithm. Then, the updated weights are given by
 
-$w_{ij}=w_{ij}+\Delta w_{ij}=w_{ij}-c\frac{\partial E}{\partial w_{ij}}=-c o_i \delta_j$
+$w_{ij}=w_{ij}+\Delta w_{ij}=w_{ij}-\eta \frac{\partial E}{\partial w_{ij}}=-\eta o_i \delta_j$
 
 
 
