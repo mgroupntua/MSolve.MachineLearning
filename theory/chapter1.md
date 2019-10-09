@@ -58,11 +58,18 @@ AN improved version of Perceptrons, capable of achieving more accurate results i
 The most common training algorithm for DNNs is the backpropagation training algorithm. The idea for this algorithm is the following.
 For each training instance, the algorithm feeds it to the network and computes the output of every neuron in each consecutive layer. Then, it measures a loss function that represents the network's output error, which is the difference between the desired output and the actual output of the network, and it also computes how much each neuron in the last hidden layer contributed to each output neuron's error. It then proceeds to measure how much of these error contributions came from each neuron in the previous hidden layer, and this process is repeated until the algorithm reaches the input layer. This process measures the error gradient across all the connection weights in the network by propagating the error gradient backward in the network. Then, it finally tweaks the connection weights to reduce the error.
 
-Some popular activation functions for the backpropagation algorithm are
+Algorithmically, the backpropagation algorithm consists of the following steps. Let's assume, for simplicity, one output neuron.
+
+1) We define an error function $L(t,y)=E$, e.g., $E=(t-y)^2$, where $E$ is the loss function, $t$ is the target output of the training sample and $y$ is the actual output of the output neuron. For each neuron $j$, its output $o_j$ is defined as
+
+$o_j=\phi(net_j)=\phi(\sum_{k=1}^n w_{kj}o_k)$
+
+where $\phi$ is the activation function and $net_j$ is the input to neuron, which is equal to th weighted sum of the outputs $o_k$ of previous neurons. Some popular activation functions for the backpropagation algorithm are
 - The sigmoid function: $S(z)=\frac{1}{1+e^{-z}}$
 - The hyperbolic tangent function: $tanh(z)=2S(2z)-1$
 - The ReLU function: ReLU(z)=max(0,z)
 
+2) The weights $w_{ij}$ in the network are adjusted, in order to minimize the error $E$. This is achieved by performing a gradient descent
 
 # References
 [1] Machine Learning with Scikit-Learn & TensorFlow, A. Geron, O' Reilly, 2017
