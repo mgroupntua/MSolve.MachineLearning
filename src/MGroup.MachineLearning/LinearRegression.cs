@@ -27,7 +27,7 @@ namespace MGroup.MachineLearning
 		/// <summary>
 		/// Assigns values to the parameters needed for the implementation of the regression model.
 		/// </summary>
-		/// <param name="trainingEpochs">An <see cref="int"/> corresponding to the number of time sall of the training vectors are used once
+		/// <param name="trainingEpochs">An <see cref="int"/> corresponding to the number of times of the training vectors are used once
 		/// to update the weight and bias.</param>
 		/// <param name="learningRate">A <see cref="float"/> used for tuning the gradient descent optimizer.</param>
 		public LinearRegression(int trainingEpochs, float learningRate)
