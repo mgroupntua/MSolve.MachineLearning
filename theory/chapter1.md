@@ -64,12 +64,49 @@ Algorithmically, the backpropagation algorithm consists of the following steps. 
 
 $o_j=\phi(net_j)=\phi(\sum_{k=1}^n w_{kj}o_k)$
 
-where $\phi$ is the activation function and $net_j$ is the input to neuron, which is equal to th weighted sum of the outputs $o_k$ of previous neurons. Some popular activation functions for the backpropagation algorithm are
+where $\phi$ is the activation function, $w_{kj}$ denotes the weight between neuron $k$ of the previous layer and neuron $j$ of the current layer, and $net_j$ is the input to neuron, which is equal to th weighted sum of the outputs $o_k$ of previous neurons. 
+
+Some popular activation functions for the backpropagation algorithm are
 - The sigmoid function: $S(z)=\frac{1}{1+e^{-z}}$
 - The hyperbolic tangent function: $tanh(z)=2S(2z)-1$
 - The ReLU function: ReLU(z)=max(0,z)
 
-2) The weights $w_{ij}$ in the network are adjusted, in order to minimize the error $E$. This is achieved by performing a gradient descent
+2) The weights $w_{ij}$ in the network are adjusted, in order to minimize the error $E$. This is achieved by performing a gradient descent algorithm that calculates the partial derivate of the error with respect to each weight $w_{ij}$ as follows
+
+$\frac{\partial E}{\partial w_}{ij}=\frac{\partial E}{\partial o_j}\frac{\partial o_j}{\partial w_{ij}}=\frac{\partial E}{\partial o_j}\frac{\partial o_j}{\partial net_j}\frac{\partial net_j}{\partial w_{ij}}$
+
+Notice that,
+
+$\frac{\partial net_j}{\partial w_{ij}}=\frac{\partial}{\partial w_{ij}}(\sum_{k=1}^n w_{kj}o_k)=o_i$
+
+$\frac{\partial o_j}{\partial net_j}=\frac{\partial \phi(net)_ j}{\partial net_j}$
+
+and 
+
+$\frac{\partial E}{\partial o_j}=\frac{\partial E}{\partial y}$ if the neuron is in the output layer
+
+or, it is given by the recursive formula
+
+$\frac{\partial E}{\partial o_j}=\sum_{m \in M}(\frac{\partial E}{\partial o_m}\frac{\partial 0_m}{\partial net_m}w_{jm})
+
+where $M$ is the subset of the neurons, from which neuron $j$ receives input. Putting all these together we end up with the following expression for the partial derivatives
+
+$\frac{\partial E}{\partial w_{ij}}=o_i\delta_j $
+
+with
+
+$\delta_j=\begin{cases} \frac{\partial L(o_j,t)}{\partial o_j}\frac{d \phi(net_j)}{d net_j} \ \ \text{ij } j \ \text{is an output neuron}\\ (\sum_{m \in M} w_{jm}\delta_m) \frac{d \phi(net_j)}{d net_j} \ \ \text{ij } j \ \text{is an inner neuron} $
+
+To update the weight $w_{ij}$ using the gradient descent algorithm, a learning rate $c>0$ must be chosen, which refers to the step size of the algorithm. Then, the updated weights are given by
+
+$w_{ij}=w_{ij}+\Delta w_{ij}=w_{ij}-c\frac{\partial E}{\partial w_{ij}}=-c o_i \delta_j$
+
+
+
+
+
+
+
 
 # References
 [1] Machine Learning with Scikit-Learn & TensorFlow, A. Geron, O' Reilly, 2017
