@@ -5,7 +5,7 @@ Performing machine learning involves creating a model, which is trained on some 
 ## Linear Regression
 Linear regression is a linear approach to modeling the relationship between a scalar response, called the dependent variable, and one or more explanatory variables, called the independent variables.
 
-Given a data set $\brace y_i,x_{i1},x_{i2},...,x_{ip} \rbrace _ {i=1}^n$ of $n$ observations, a linear regression model assumes that the relationship between the dependent variable $y$ and the $p$-vector of regressors $\boldsymbol{x}$ is linear. The relationship takes the form
+Given a data set $\\{ y_i,x_{i1},x_{i2},...,x_{ip} \\} _ {i=1}^n$ of $n$ observations, a linear regression model assumes that the relationship between the dependent variable $y$ and the $p$-vector of regressors $\boldsymbol{x}$ is linear. The relationship takes the form
 
 $y_i=\beta_0+\beta_1x_{i1}+...+\beta_px_{ip}+\epsilon_i=\boldsymbol{x} _ i^T \boldsymbol{\beta}+\epsilon_i \, \, $,    $i=1,...,n$
 
@@ -21,13 +21,14 @@ $$\boldsymbol{y}=\begin{pmatrix} y_1 \\ \vdots \\ y_n\end{pmatrix}$$,
 $$\boldsymbol{X}=\begin{pmatrix} 1 & x_{11} & \cdots & x_{ip} \\ 
                                 \vdots & \ddots & \vdots \\
                                 1 & \cdots & x_{np} \end{pmatrix}$$,
+                                
 $$\boldsymbol{\beta}=\begin{pmatrix} \beta_0 \\ \vdots \\ \beta_p\end{pmatrix}$$,
 
 $$\boldsymbol{\epsilon}=\begin{pmatrix} \epsilon_1 \\ \vdots \\ \epsilon_n\end{pmatrix}$$
 
 Using the least-squares method, the values of $\boldsymbol{\beta}$ are chosen such that the sum of the square of the errors is minimized, that is, 
 
-$\boldsymbol{\hat{\beta}}=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n \epsilon_i^2=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n (\boldsymbol{\beta} \dot \boldsymbol{x}_ i )^2$.
+$$\boldsymbol{\hat{\beta}}=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n \epsilon_i^2=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n (\boldsymbol{\beta} \cdot \boldsymbol{x}_ i )^2$$.
 
 Finding the values of $\boldsymbol{\beta}$ that minimize the above quantity constitutes a problem of convex optimization and the optimal values can be obtained via a gradient descent algorithm. Also, for this type of problems an analytical solution is given by the expression
 
@@ -97,7 +98,7 @@ $\frac{\partial E}{\partial w_{ij}}=o_i\delta_j $
 
 with
 
-$$\delta_j=\begin{cases} \frac{\partial L(o_j,t)}{\partial o_j}\frac{d \phi(net_j)}{d net_j} \, \, \text{ij } j \, \text{is an output neuron}\\ (\sum_{m \in M} w_{jm}\delta_m) \frac{d \phi(net_j)}{d net_j} \, \, \text{ij } j \, \text{is an inner neuron} $$
+$$ \delta _ j =\begin{cases} \frac{\partial L(o_j,t)}{\partial o_j} \frac{d \phi(net_j)}{d net_j} \, \, \text{ij } j \, \text{is an output neuron}\\ (\sum_{m \in M} w_{jm}\delta_m) \frac{d \phi(net_j)}{d net_j} \, \, \text{ij } j \, \text{is an inner neuron} \end{cases} $$
 
 To update the weight $w_{ij}$ using the gradient descent algorithm, a learning rate $\eta >0$ must be chosen, which refers to the step size of the algorithm. Then, the updated weights are given by
 
