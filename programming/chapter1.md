@@ -8,7 +8,7 @@ This example creates a linear regression model in order to find the optimal line
 
 $$J=\frac{1}{n} \sum_{i=1}^n(pred_i-y_i)^2$$
 
-where $pred_i=ax_i+b$, $a$ being the weight and $b$ the bias. Then, using a gradient descent algorithm the values of $a,b$ as tweaked in such a way, that the cost function gets minimized. The implementation of this example can be found in **MSolve.MachineLearning.Tests** project. 
+where $pred_i=ax_i+b$, $a$ being the weight and $b$ the bias. Then, using a gradient descent algorithm the values of $a,b$ are tweaked in such a way, that the cost function gets minimized. The implementation of this example can be found in **MSolve.MachineLearning.Tests** project. 
 
 The first code section reads a set of values **dataX** for the independent variable and the corresponding values of the dependent variable 
 **dataY**.
@@ -44,11 +44,11 @@ The last step is to use this model to make predictions on new data, or extract t
 ```
 
 ## Neural network example
-This examples builds a neural network with a predefined architecture to solve the famous **XOR** problem. For the training of the network, a number of samples is provided which consists of a set observations from an independent set of variables along with their outcome, which is a scalar quantity. In the setting of the **XOR** problem there are two independent variables which assume discrete values of 0 and 1. If their values are equal (e.g. (0,0) or (1,1)) then the dependent variable takes the value of 0, otherwise it is equal to 1. In order to evaluate the optimal values of the weights $w_ {ij}$ a cost function defined as 
+This examples builds a neural network with a predefined architecture to solve the famous **XOR** problem. For the training of the network, a number of samples is provided which consists of a set observations from an independent set of variables along with their outcome, which is a scalar quantity. In the setting of the **XOR** problem there are two independent variables which assume discrete values of 0 and 1. If their values are equal (e.g. (0,0) or (1,1)) then the dependent variable takes the value of 0, otherwise it is equal to 1. In order to evaluate the optimal values of the weights $\boldsymbol{w}$ a cost function defined as 
 
-$$J=\frac{1}{n} \sum_{i=1}^n(pred_i-y_i)^2$$
+$$J=\sum_{i=1}^n(pred_i-y_i)^2$$
 
-where $pred_i=ax_i+b$, $a$ being the weight and $b$ the bias. Then, using a gradient descent algorithm the values of $a,b$ as tweaked in such a way, that the cost function gets minimized. The implementation of this example can be found in **MSolve.MachineLearning.Tests** project. 
+where $pred_i$ is the actual output of the output neuron and $y_i$ is the tardet output of the training sample. Then, using a gradient descent algorithm the values of $\boldsymbol{w}$ are tweaked in such a way, that the cost function gets minimized. The implementation of this example can be found in **MSolve.MachineLearning.Tests** project. 
 
 The first code section reads a set of values **dataX** for the independent variables and the corresponding values of the dependent variable **dataY**.
 
