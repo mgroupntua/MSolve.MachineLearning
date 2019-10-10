@@ -23,12 +23,11 @@ $$\boldsymbol{X}=\begin{pmatrix} 1 & x_{11} & \cdots & x_{ip} \\
                                 1 & \cdots & x_{np} \end{pmatrix}$$,
                                 
 $$\boldsymbol{\beta}=\begin{pmatrix} \beta_0 \\ \vdots \\ \beta_p\end{pmatrix}$$,
-
 $$\boldsymbol{\epsilon}=\begin{pmatrix} \epsilon_1 \\ \vdots \\ \epsilon_n\end{pmatrix}$$
 
 Using the least-squares method, the values of $\boldsymbol{\beta}$ are chosen such that the sum of the square of the errors is minimized, that is, 
 
-$$\boldsymbol{\hat{\beta}}=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n \epsilon_i^2=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n (\boldsymbol{\beta} \cdot \boldsymbol{x}_ i )^2$$.
+$$\boldsymbol{\hat{\beta}}=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n \epsilon_i^2=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n (y_i-\boldsymbol{\beta} \cdot \boldsymbol{x}_ i )^2$$.
 
 Finding the values of $\boldsymbol{\beta}$ that minimize the above quantity constitutes a problem of convex optimization and the optimal values can be obtained via a gradient descent algorithm. Also, for this type of problems an analytical solution is given by the expression
 
