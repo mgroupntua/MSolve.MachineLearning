@@ -5,27 +5,29 @@ Performing machine learning involves creating a model, which is trained on some 
 ## Linear Regression
 Linear regression is a linear approach to modeling the relationship between a scalar response, called the dependent variable, and one or more explanatory variables, called the independent variables.
 
-Given a data set $\{y_i,x_{i1},x_{i2},...,x_{ip}\} _ {i=1}^n$ of $n$ observations, a linear regression model assumes that the relationship between the dependent variable $y$ and the $p$-vector of regressors $\boldsymbol{x}$ is linear. The relationship takes the form
+Given a data set $\brace y_i,x_{i1},x_{i2},...,x_{ip} \rbrace _ {i=1}^n$ of $n$ observations, a linear regression model assumes that the relationship between the dependent variable $y$ and the $p$-vector of regressors $\boldsymbol{x}$ is linear. The relationship takes the form
 
-$y_i=\beta_0+\beta_1x_{i1}+...+\beta_px_{ip}+\epsilon_i=\boldsymbol{x} _ i^T \boldsymbol{\beta}+\epsilon_i$,    $i=1,...,n$
+$y_i=\beta_0+\beta_1x_{i1}+...+\beta_px_{ip}+\epsilon_i=\boldsymbol{x} _ i^T \boldsymbol{\beta}+\epsilon_i \, \, $,    $i=1,...,n$
 
-where $\epsilon$ is an error variable added in the summation. Also, $\beta_0$ is called the bias and $\beta_1,...,\beta_b$ the weights of the regression.
+where $\epsilon$ is an error variable added in the summation. Also, $\beta_0$ is called the bias and $\beta_1,...,\beta_p$ the weights of the regression.
 
 The above system of $n$ equation can be written in matrix form as 
 
 $\boldsymbol{y}=\boldsymbol{X}\boldsymbol{\beta}+\boldsymbol{\epsilon}$
 
 where 
-$\boldsymbol{y}=\begin{pmatrix} y_1 \\ \vdots \\ y_n\end{pmatrix}$
-$\boldsymbol{X}=\begin{pmatrix} 1 & x_{11} & \cdots & x_{ip} \\ 
+$$\boldsymbol{y}=\begin{pmatrix} y_1 \\ \vdots \\ y_n\end{pmatrix}$$,
+
+$$\boldsymbol{X}=\begin{pmatrix} 1 & x_{11} & \cdots & x_{ip} \\ 
                                 \vdots & \ddots & \vdots \\
-                                1 & \cdots & x_{np} \end{pmatrix}$
-$\boldsymbol{\beta}=\begin{pmatrix} \beta_0 \\ \vdots \\ \beta_p\end{pmatrix}$
-$\boldsymbol{\epsilon}=\begin{pmatrix} \epsilon_1 \\ \vdots \\ \epsilon_n\end{pmatrix}$
+                                1 & \cdots & x_{np} \end{pmatrix}$$,
+$$\boldsymbol{\beta}=\begin{pmatrix} \beta_0 \\ \vdots \\ \beta_p\end{pmatrix}$$,
+
+$$\boldsymbol{\epsilon}=\begin{pmatrix} \epsilon_1 \\ \vdots \\ \epsilon_n\end{pmatrix}$$
 
 Using the least-squares method, the values of $\boldsymbol{\beta}$ are chosen such that the sum of the square of the errors is minimized, that is, 
 
-$\hat{\boldsymbol{\beta}}=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n \epsilon_i^2=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n (\boldsymbol{\beta} \dot \boldsymbol{x}_ i )^2$.
+$\boldsymbol{\hat{\beta}}=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n \epsilon_i^2=argmin_{\boldsymbol{\beta}} \sum_{i=1}^n (\boldsymbol{\beta} \dot \boldsymbol{x}_ i )^2$.
 
 Finding the values of $\boldsymbol{\beta}$ that minimize the above quantity constitutes a problem of convex optimization and the optimal values can be obtained via a gradient descent algorithm. Also, for this type of problems an analytical solution is given by the expression
 
@@ -46,7 +48,7 @@ Some common step functions include:
 
 A Perceptron is simply composed of a single layer of LTUs, with each neuron connected to all the inputs. Training of the network refers to the process of ajusting the connection weights $w_{i,j}$ between neurons $i$ and $j$ so that a loss function is minimized. More specifically, the weights are updated as
 
-$w_{i,j}^{(next step)}=w_{i,j}}+\eta(\hat{y}_ j-y_ j)x_i$
+$w_{i,j}^{(next step)}=w_{i,j}+\eta(\hat{y}_ j-y_ j)x_i$
 
 where 
 - $x_i$ is the $i^{th}$ input value of the current training instance
@@ -73,7 +75,7 @@ Some popular activation functions for the backpropagation algorithm are
 
 2) The weights $w_{ij}$ in the network are adjusted, in order to minimize the error $E$. This is achieved by performing a gradient descent algorithm that calculates the partial derivate of the error with respect to each weight $w_{ij}$ as follows
 
-$\frac{\partial E}{\partial w_}{ij}=\frac{\partial E}{\partial o_j}\frac{\partial o_j}{\partial w_{ij}}=\frac{\partial E}{\partial o_j}\frac{\partial o_j}{\partial net_j}\frac{\partial net_j}{\partial w_{ij}}$
+$\frac{\partial E}{\partial w_{ij}}=\frac{\partial E}{\partial o_j}\frac{\partial o_j}{\partial w_{ij}}=\frac{\partial E}{\partial o_j}\frac{\partial o_j}{\partial net_j}\frac{\partial net_j}{\partial w_{ij}}$
 
 Notice that,
 
@@ -87,7 +89,7 @@ $\frac{\partial E}{\partial o_j}=\frac{\partial E}{\partial y}$ if the neuron is
 
 or, it is given by the recursive formula
 
-$\frac{\partial E}{\partial o_j}=\sum_{m \in M}(\frac{\partial E}{\partial o_m}\frac{\partial 0_m}{\partial net_m}w_{jm})
+$$\frac{\partial E}{\partial o_j}=\sum_{m \in M}(\frac{\partial E}{\partial o_m}\frac{\partial o_m}{\partial net_m}w_{jm} )$$
 
 where $M$ is the subset of the neurons, from which neuron $j$ receives input. Putting all these together we end up with the following expression for the partial derivatives
 
@@ -95,7 +97,7 @@ $\frac{\partial E}{\partial w_{ij}}=o_i\delta_j $
 
 with
 
-$\delta_j=\begin{cases} \frac{\partial L(o_j,t)}{\partial o_j}\frac{d \phi(net_j)}{d net_j} \ \ \text{ij } j \ \text{is an output neuron}\\ (\sum_{m \in M} w_{jm}\delta_m) \frac{d \phi(net_j)}{d net_j} \ \ \text{ij } j \ \text{is an inner neuron} $
+$$\delta_j=\begin{cases} \frac{\partial L(o_j,t)}{\partial o_j}\frac{d \phi(net_j)}{d net_j} \, \, \text{ij } j \, \text{is an output neuron}\\ (\sum_{m \in M} w_{jm}\delta_m) \frac{d \phi(net_j)}{d net_j} \, \, \text{ij } j \, \text{is an inner neuron} $$
 
 To update the weight $w_{ij}$ using the gradient descent algorithm, a learning rate $\eta >0$ must be chosen, which refers to the step size of the algorithm. Then, the updated weights are given by
 
