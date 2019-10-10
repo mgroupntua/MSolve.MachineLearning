@@ -1,3 +1,5 @@
+{% include mathjax.html %}
+
 # Examples
 The examples presented in this chapter demonstrate the process of creating a model that emulates a system's input-output relation.
 
@@ -63,4 +65,18 @@ The second code section reads the parameters required from the model. These incl
 private int trainingEpochs = 2000;
 private static int numHiddenLayers = 8;
 ```
-In certain cases, the independent variables refer to different physical quantities. In such cases, it is preferable to first normalize the data so that their values will share a common scale. A common type of normalization is the minmax feature scaling which brings all values into the range of [0 1].
+In certain cases, the independent variables refer to different physical quantities. In such cases, it is preferable to first normalize the data so that their values will share a common scale. A common type of normalization is the minmax feature scaling which brings all values into the range of [0 1]. To this end, the variable **normalization** is defined (even though in this example it is unnecessary, since the variables are already in the [0 1] range):
+
+```csharp
+MinMaxNormalization normalization = new MinMaxNormalization();
+```
+
+The next step is to create the neural network model with the specified parameters and to train it using the input data.
+```csharp
+NeuralNetwork neuralNetwork = new NeuralNetwork(numHiddenLayers, trainingEpochs, normalization);
+neuralNetwork.Train(dataX, dataY);
+```
+The last step is to use this model to make predictions on new data.
+```csharp
+float[] results = neuralNetwork.Predict(testX);
+```
