@@ -6,6 +6,6 @@ namespace MGroup.MachineLearning.Normalization
 {
 	public interface INormalization
 	{
-		(double[,], float[]) Normalize(double[,] rawX, float[] rawY);
+		(double[,], double[], double[]) Normalize(double[,] rawX);
 	}
 }
