@@ -16,9 +16,6 @@ namespace MGroup.MachineLearning.Tests
 
 	public class LinearRegressionExample
 	{
-		private float optimizedWeight;
-		private float optimizedBias;
-
 		// data input
 		private static double[] dataX = {3.3f, 4.4f, 5.5f, 6.71f, 6.93f, 4.168f, 9.779f, 6.182f, 7.59f, 2.167f,
 			 7.042f, 10.791f, 5.313f, 7.997f, 5.654f, 9.27f, 3.1f };
@@ -39,9 +36,9 @@ namespace MGroup.MachineLearning.Tests
 		{
 			LinearRegression linearRegression = new LinearRegression(trainingEpochs, learningRate);
 			linearRegression.Train(dataX, dataY);
-			(float[] results,float optimalWeights, float optimalBias) = linearRegression.Predict(testX);
+			(float[] results,float optimalWeight, float optimalBias) = linearRegression.Predict(testX);
 			//analytical solution coefficientVector=(X'*X)*X'*Y where X is the inputX with ones in the first column and Y is inputY: bias=0.7988 and weight=0.2516
-			Assert.Equal(0.309068531, optimalWeights, 6);
+			Assert.Equal(0.309068531, optimalWeight, 6);
 			Assert.Equal(0.373608261, optimalBias, 6);
 		}
 	}
