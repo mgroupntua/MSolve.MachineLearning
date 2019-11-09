@@ -1,13 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MGroup.LinearAlgebra" Version="1.0.310" />
     <PackageReference Include="Microsoft.ML.TensorFlow.Redist" Version="0.14.0" />
     <PackageReference Include="SciSharp.TensorFlow.Redist-Windows-GPU" Version="1.14.0" />
     <PackageReference Include="TensorFlow.NET" Version="0.11.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Clustering\" />
   </ItemGroup>
 
 </Project>
