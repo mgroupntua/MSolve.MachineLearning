@@ -55,7 +55,7 @@ namespace MGroup.MachineLearning.SurrogateModels
 			Matrix matrixOfCoordinatesOfNNs = Matrix.CreateFromArray(coordinatesOfNNs);
 			Matrix A = invL.MultiplyRight(matrixOfCoordinatesOfNNs.Transpose());
 			Matrix Atranspose = A.Transpose();
-			Vector newinterpolantValues= Atranspose.Multiply(lVector) ;
+			Vector newinterpolantValues= Atranspose.Multiply(lVector);
 
 			return newInterpolantValues;
 		}
