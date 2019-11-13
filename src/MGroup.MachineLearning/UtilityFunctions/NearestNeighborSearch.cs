@@ -8,40 +8,31 @@ namespace MGroup.MachineLearning.UtilityFunctions
 {
 	public class NearestNeighborSearch
 	{
-		public static (int[,], double[,]) KnnSearch(double[,] trainSamples, double[,] testSamples, int K)
+		public static (int[], double[]) KnnSearch(double[,] trainSamples, double[] testSample, int K)
 		{
-
-			var indices = new int[testSamples.GetLength(0), testSamples.GetLength(0)];
-			var testNumber = testSamples.GetLength(0);
-			var trainNumber = trainSamples.GetLength(0);
-			// Declaring these here so that I don't have to 'new' them over and over again in the main loop, 
-			// just to save some overhead
+			int trainNumber = trainSamples.GetLength(1);
 			var distances = new double[trainNumber][];
 			for (var i = 0; i < trainNumber; i++)
 			{
 				distances[i] = new double[2]; // Will store both distance and index in here
 			}
 
-			// Performing KNN ...
-			for (int tst = 0; tst < testNumber; tst++)
+			// For every test sample, calculate distance from every training sample
+			for (var trn = 0; trn < trainNumber; trn++)
 			{
-				// For every test sample, calculate distance from every training sample
-				for (var trn = 0; trn < trainNumber; trn++)
-				{
-					double[] testSample = Enumerable.Range(0, testSamples.GetLength(1)).Select(x => testSamples[tst, x]).ToArray();
-					double[] trainSample = Enumerable.Range(0, trainSamples.GetLength(1)).Select(x => trainSamples[tst, x]).ToArray();
+				double[] trainSample = Enumerable.Range(0, trainSamples.GetLength(1)).Select(x => trainSamples[trn, x]).ToArray();
 
-					double dist = GetDistance(testSample, trainSample);
-					// Storing distance as well as index 
-					distances[trn][0] = dist;
-					distances[trn][1] = trn;
-				};
+				double dist = GetDistance(testSample, trainSample);
+				// Storing distance as well as index 
+				distances[trn][0]= dist;
+				distances[trn][1] = trn;
+			};
 
-				// Sort distances and take top K (?What happens in case of multiple points at the same distance?)
-				var votingDistances = distances.AsParallel().OrderBy(t => t[0]).Take(K);
-			}
-
-			return (indices, sortedDistances);
+			// Sort distances and take top K (?What happens in case of multiple points at the same distance?)
+			var sortedDistancesAndIndices = distances.AsParallel().OrderBy(t => t[0]).Take(K);
+			double[] sortedDistances = sortedDistancesAndIndices.AsEnumerable().Select(t=>t[0]).ToArray();
+			int[] sortedIndices =  sortedDistancesAndIndices.AsEnumerable().Select(t => (int) t[1]).ToArray();
+			return (sortedIndices, sortedDistances);
 		}
 
 		private static double GetDistance(double[] sample1, double[] sample2)
