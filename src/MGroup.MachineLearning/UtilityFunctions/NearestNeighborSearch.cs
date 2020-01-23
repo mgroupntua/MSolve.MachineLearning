@@ -10,7 +10,7 @@ namespace MGroup.MachineLearning.UtilityFunctions
 	{
 		public static (int[], double[]) KnnSearch(double[,] trainSamples, double[] testSample, int K)
 		{
-			int trainNumber = trainSamples.GetLength(1);
+			int trainNumber = trainSamples.GetLength(0);
 			var distances = new double[trainNumber][];
 			for (var i = 0; i < trainNumber; i++)
 			{
@@ -20,7 +20,7 @@ namespace MGroup.MachineLearning.UtilityFunctions
 			// For every test sample, calculate distance from every training sample
 			for (var trn = 0; trn < trainNumber; trn++)
 			{
-				double[] trainSample = Enumerable.Range(0, trainSamples.GetLength(1)).Select(x => trainSamples[trn, x]).ToArray();
+				double[] trainSample = Enumerable.Range(0, trainSamples.GetLength(1)).Select(x => trainSamples[trn,x]).ToArray();
 
 				double dist = GetDistance(testSample, trainSample);
 				// Storing distance as well as index 
