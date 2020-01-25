@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Accord.Math;
 using MGroup.MachineLearning.UtilityFunctions;
 
 
@@ -165,10 +166,11 @@ namespace MGroup.MachineLearning.DimensionalityReduction
 				}
 			}
 
+			double temp;
 			// q^S_epsilon (this is the sampling density estimate q(x) obtained from the VB kernel)
 			for (var i = 0; i < symmetricSortedDistances.GetLength(0); i++)
 			{
-				double temp = 0;
+				temp = 0;
 				for (var j = 0; j < symmetricSortedDistances.GetLength(1); j++)
 				{
 					temp += symmetricSortedDistances[i, j];
@@ -182,10 +184,89 @@ namespace MGroup.MachineLearning.DimensionalityReduction
 				Dinv1[i, i] = Math.Pow(qest[i], -alpha);
 			}
 
-			double[] DMAPEigs;
-			double[,] DMAPEigvals;
-			(DMAPEigs,DMAPEigvals)= EigenDecomposition.FindEigenValuesAndEigenvectorsSymmetricOnly(Dinv1, numberOfEigenvectors);
+			double[,] DtimesDinv = new double[N, N];
+			DtimesDinv = Accord.Math.Matrix.Dot(symmetricSortedDistances, Dinv1);
+			double[,] newD = new double[N, N];
+			newD = Accord.Math.Matrix.Dot(Dinv1, DtimesDinv);
 
+			double[,] Sinv = new double[N, N];
+			double temp2;
+			for (var i = 0; i < N; i++)
+			{
+				temp2 = 0;
+				for (var j = 0; j < N; j++)
+				{
+					temp2 += newD[i,j];
+				}
+				Sinv[i, i] = Math.Pow(Math.Pow(rho[i], 2) * temp2, -0.5);
+			}
+
+			double[,] newDtimesSinv = new double[N, N];
+			newDtimesSinv = Accord.Math.Matrix.Dot(newD, Sinv);
+			double[,] finalD = new double[N, N];
+			finalD = Accord.Math.Matrix.Dot(Sinv, newDtimesSinv);
+			for (var i = 0; i < N; i++)
+			{
+				finalD[i, i] = finalD[i, i] - Math.Pow(rho[i], -2) +1;
+			}
+
+			double[] DMAPEigVals;
+			double[,] DMAPEigVecs;
+			bool sort = true;
+			bool inPlace = false;
+			bool scaled = true;
+			(DMAPEigVals, DMAPEigVecs) = EigenDecomposition.FindEigenValuesAndEigenvectorsSymmetricOnly(finalD, numberOfEigenvectors, inPlace, sort, scaled);
+			for (var i = 0; i < numberOfEigenvectors; i++)
+			{
+				DMAPEigVals[i] = Math.Log(DMAPEigVals[i])/epsilon;
+			}
+			DMAPEigVecs = Accord.Math.Matrix.Dot(Sinv, DMAPEigVecs);
+
+
+			// normalize qest into a density
+			for (var i = 0; i <N; i++)
+			{
+				qest[i] = qest[i]/(N*Math.Pow(4*Math.PI*epsilon,dim/2));
+			}
+
+			// constuct the invariant measure of the system
+			double[] peq = new double[N];
+			for (var i = 0; i < N; i++)
+			{
+				peq[i] = qest[i] * Math.Pow(Sinv[i,i], -2);
+			}
+
+			double normalizationFactor=0;
+			for (var i = 0; i < N; i++)
+			{
+				normalizationFactor += peq[i]/qest[i]/N;
+			}
+
+			// normalize the invariant measure
+			for (var i = 0; i < N; i++)
+			{
+				peq[i] = peq[i] / normalizationFactor;
+			}
+
+			//normalize eigenfunctions such that: \sum_i psi(x_i)^2 p(x_i)/q(x_i) = 1
+			double[] EigVec_i = new double[N];
+			double[]tempVector = new double[N];
+			double meanTempVector = 0;
+			for (var i = 0; i < numberOfEigenvectors; i++)
+			{
+				EigVec_i= Enumerable.Range(0, DMAPEigVecs.GetLength(0)).Select(x => DMAPEigVecs[x, i]).ToArray();
+				for (var j = 0; j < N; j++)
+				{
+
+					tempVector[j]=Math.Pow(EigVec_i[j],2)*(peq[j]/qest[j]);
+				}
+				meanTempVector = FindMeanOfVector(tempVector);
+				for (var j = 0; j < N; j++)
+				{
+
+					DMAPEigVecs[j,i] = DMAPEigVecs[j, i]/Math.Sqrt(meanTempVector);
+				}
+			}
 		}
 
 
@@ -210,6 +291,17 @@ namespace MGroup.MachineLearning.DimensionalityReduction
 				rho0[i] = Math.Sqrt(rho0[i] / distNew.GetLength(1));
 			}
 			return rho0;
+		}
+
+		private static double FindMeanOfVector(double[] vec)
+		{
+			double mean= 0;
+			int N = vec.Length;
+			for (var i = 0; i < N; i++)
+			{
+				mean += vec[i] / N;
+			}
+			return mean;
 		}
 
 		private static double[,] evaluateDt(double[,] dist, double[] rho0, int[,] indices, int k)

@@ -18,10 +18,10 @@ namespace MGroup.MachineLearning.Tests
 		private int numberOfKNN = 512;
 		private int NNofKDE = 64;
 		private int differentialOperator = 1;  // 1:Laplace-Beltrami, 2:generator of grad system
-		private int numberOfEigenvectors = 3;
+		private int numberOfEigenvectors = 11;
 		private double[,] dataSet = ImportData.ImportDataFromCSV();
 		[Fact]
-		private void TestLinearRegression()
+		private void TestDMAPAlgorithm()
 		{
 			DiffusionMapsAlgorithm DMAP = new DiffusionMapsAlgorithm(dataSet, numberOfKNN, NNofKDE, differentialOperator, numberOfEigenvectors);
 			DMAP.ProcessData();
