@@ -27,14 +27,15 @@ namespace MGroup.MachineLearning.Tests
 		// parameters
 		private static int trainingEpochs = 2000;
 		private static int numHiddenLayers = 8;
-
+		private static float learning_rate = 0.02F;
+		private static bool useActivationFunctions = true;
 		[Fact]
 		private static void TestNeuralNetwork()
 		{
 
 			MinMaxNormalization normalization = new MinMaxNormalization();
-
-			NeuralNetwork neuralNetwork = new NeuralNetwork(numHiddenLayers, trainingEpochs, normalization);
+			Optimizer optimizer = tf.train.GradientDescentOptimizer(learning_rate);
+			NeuralNetwork neuralNetwork = new NeuralNetwork(numHiddenLayers, trainingEpochs, normalization, optimizer, useActivationFunctions);
 			neuralNetwork.Train(dataX, dataY);
 			float[] results = neuralNetwork.Predict(testX);
 
