@@ -20,6 +20,8 @@ namespace MGroup.MachineLearning
 		private readonly INormalization normalization;
 		private readonly int trainingEpochs;
 		private readonly int numHiddenLayers;
+		private readonly Optimizer optimizer;
+		private readonly bool useActivationFunctions;
 
 		Graph graph;
 		Tensor features;
@@ -33,11 +35,13 @@ namespace MGroup.MachineLearning
 		/// <param name="trainingEpochs">An <see cref="int"/> corresponding to the number of times all of the training vectors are used once
 		/// to update the weights.</param>
 		/// <param name="normalization">An <see cref="INormalization"/> refering to the method of choice to normalize the data.</param>
-		public NeuralNetwork(int numHiddenLayers, int trainingEpochs, INormalization normalization)
+		public NeuralNetwork(int numHiddenLayers, int trainingEpochs, INormalization normalization, Optimizer optimizer, bool useActivationFunctions)
 		{
 			this.normalization = normalization;
 			this.trainingEpochs = trainingEpochs;
 			this.numHiddenLayers = numHiddenLayers;
+			this.useActivationFunctions = useActivationFunctions;
+			this.optimizer = optimizer;	
 		}
 
 		/// <summary>
@@ -51,7 +55,7 @@ namespace MGroup.MachineLearning
 			graph = tf.Graph().as_default();
 			features = tf.placeholder(tf.float32, new TensorShape(X.GetLength(0), X.GetLength(1)));
 			var labels = tf.placeholder(tf.int32, new TensorShape(X.GetLength(0)));
-			(Operation train_op, Tensor loss, Tensor gs, Tensor predictions) = MakeGraph(features, labels, numHiddenLayers);
+			(Operation train_op, Tensor loss, Tensor gs, Tensor predictions) = MakeGraph(features, labels, numHiddenLayers, optimizer, useActivationFunctions);
 			this.predictor = predictions;
 			var init = tf.global_variables_initializer();
 
@@ -89,13 +93,16 @@ namespace MGroup.MachineLearning
 			throw new NotImplementedException();
 		}
 
-		private (Operation, Tensor, Tensor, Tensor) MakeGraph(Tensor features, Tensor labels, int numHiddenLayers)
+		private (Operation, Tensor, Tensor, Tensor) MakeGraph(Tensor features, Tensor labels, int numHiddenLayers, Optimizer optimizer, bool useActivationFunctions)
 		{
 			var stddev = 1 / Math.Sqrt(2);
 			var hidden_weights = tf.Variable(tf.truncated_normal(new int[] { 2, numHiddenLayers }, seed: 1, stddev: (float)stddev));
+			var hidden_activations = tf.matmul(features, hidden_weights);
 
-			var hidden_activations = tf.nn.relu(tf.matmul(features, hidden_weights));
-
+			if (useActivationFunctions)
+				hidden_activations = tf.nn.relu(tf.matmul(features, hidden_weights));
+			
+			
 			var output_weights = tf.Variable(tf.truncated_normal(
 				new[] { numHiddenLayers, 1 },
 				seed: 17,
@@ -104,12 +111,12 @@ namespace MGroup.MachineLearning
 
 			var logits = tf.matmul(hidden_activations, output_weights);
 
-			var predictor = tf.tanh(tf.squeeze(logits));
+			var predictor = tf.squeeze(logits);
 			var loss = tf.reduce_mean(tf.square(predictor - tf.cast(labels, tf.float32)), name: "loss");
 
 			var gs = tf.Variable(0, trainable: false, name: "global_step");
-			var train_op = tf.train.GradientDescentOptimizer(0.2f).minimize(loss, global_step: gs);
-
+			var train_op = optimizer.minimize(loss, global_step: gs);
+	
 			return (train_op, loss, gs, predictor);
 		}
 
