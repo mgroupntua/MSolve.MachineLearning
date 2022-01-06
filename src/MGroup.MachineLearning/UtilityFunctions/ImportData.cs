@@ -12,6 +12,7 @@ namespace MGroup.MachineLearning.UtilityFunctions
 		public static double[,] ImportDataFromCSV()
 		{
 			var filePath = @"E:\GIANNIS_DATA\DESKTOP\VS\DMAPTestData.csv";
+			//var filePath = @"E:\GIANNIS_DATA\DESKTOP\PHD\ProjectThermal\MatlabCodes\randomPolygons.csv";
 			string[][] dataValues = File.ReadLines(filePath).Select(x => x.Split(',')).ToArray();
 			double[,] dataSet = new double[dataValues.GetLength(0), dataValues[0].Length];
 

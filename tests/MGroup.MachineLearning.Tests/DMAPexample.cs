@@ -20,6 +20,8 @@ namespace MGroup.MachineLearning.Tests
 		private int differentialOperator = 1;  // 1:Laplace-Beltrami, 2:generator of grad system
 		private int numberOfEigenvectors = 11;
 		private double[,] dataSet = ImportData.ImportDataFromCSV();
+
+
 		[Fact]
 		private void TestDMAPAlgorithm()
 		{

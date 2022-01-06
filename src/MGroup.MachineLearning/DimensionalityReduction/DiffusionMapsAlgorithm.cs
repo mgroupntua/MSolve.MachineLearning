@@ -214,7 +214,7 @@ namespace MGroup.MachineLearning.DimensionalityReduction
 			double[,] DMAPEigVecs;
 			bool sort = true;
 			bool inPlace = false;
-			bool scaled = true;
+			bool scaled = false;
 			(DMAPEigVals, DMAPEigVecs) = EigenDecomposition.FindEigenValuesAndEigenvectorsSymmetricOnly(finalD, numberOfEigenvectors, inPlace, sort, scaled);
 			for (var i = 0; i < numberOfEigenvectors; i++)
 			{
