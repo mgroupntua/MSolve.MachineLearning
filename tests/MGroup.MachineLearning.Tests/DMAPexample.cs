@@ -27,8 +27,9 @@ namespace MGroup.MachineLearning.Tests
 		{
 			DiffusionMapsAlgorithm DMAP = new DiffusionMapsAlgorithm(dataSet, numberOfKNN, NNofKDE, differentialOperator, numberOfEigenvectors);
 			DMAP.ProcessData();
-			Assert.Equal(0.309068531, 1, 6);
-			Assert.Equal(0.373608261, 1, 6);
+			Assert.True(Math.Abs(DMAP.DMAPeigenvalues[1] + 7.1048) < 0.001);
+			Assert.True(Math.Abs(DMAP.DMAPeigenvalues[2] + 12.8862) < 0.001);
+			Assert.True(Math.Abs(DMAP.DMAPeigenvalues[3] + 16.8511) < 0.001);
 		}
 	}
 }

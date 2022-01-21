@@ -18,6 +18,8 @@ namespace MGroup.MachineLearning.DimensionalityReduction
 		private int numberOfEigenvectors;
 		private double[,] dataSet;
 		double alpha, beta;
+		public double[] DMAPeigenvalues;
+		public double[,] DMAPeigenvectors;
 
 		// read the matrix containing the problem data
 		public DiffusionMapsAlgorithm(double[,] dataSet, int numberOfKNN, int NNofKDE, int differentialOperator, int numberOfEigenvectors)
@@ -27,6 +29,8 @@ namespace MGroup.MachineLearning.DimensionalityReduction
 			this.NNofKDE = NNofKDE;
 			this.differentialOperator = differentialOperator;
 			this.numberOfEigenvectors = numberOfEigenvectors;
+			//this.DMAPeigenvalues = DMAPeigenvalues;
+			//this.DMAPeigenvectors = DMAPeigenvectors;
 		}
 
 		public void ProcessData()
@@ -214,7 +218,7 @@ namespace MGroup.MachineLearning.DimensionalityReduction
 			double[,] DMAPEigVecs;
 			bool sort = true;
 			bool inPlace = false;
-			bool scaled = false;
+			bool scaled = true;
 			(DMAPEigVals, DMAPEigVecs) = EigenDecomposition.FindEigenValuesAndEigenvectorsSymmetricOnly(finalD, numberOfEigenvectors, inPlace, sort, scaled);
 			for (var i = 0; i < numberOfEigenvectors; i++)
 			{
@@ -267,6 +271,9 @@ namespace MGroup.MachineLearning.DimensionalityReduction
 					DMAPEigVecs[j,i] = DMAPEigVecs[j, i]/Math.Sqrt(meanTempVector);
 				}
 			}
+
+			DMAPeigenvalues = DMAPEigVals;
+			DMAPeigenvectors = DMAPEigVecs;
 		}
 
 
