@@ -5,9 +5,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Accord.Math" Version="3.8.0" />
+    <PackageReference Include="MGroup.LinearAlgebra" Version="1.0.310" />
+    <PackageReference Include="Microsoft.ML" Version="1.5.4" />
+    <PackageReference Include="Microsoft.ML.OnnxConverter" Version="0.17.4" />
+    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.6.0" />
+    <PackageReference Include="Microsoft.ML.OnnxTransformer" Version="1.5.4" />
     <PackageReference Include="Microsoft.ML.TensorFlow.Redist" Version="0.14.0" />
     <PackageReference Include="SciSharp.TensorFlow.Redist-Windows-GPU" Version="1.14.0" />
     <PackageReference Include="TensorFlow.NET" Version="0.11.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Clustering\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\iris.data">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ONNXmodels\convertFtoCtest.onnx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
